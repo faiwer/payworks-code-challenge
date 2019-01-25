@@ -4,9 +4,7 @@ import { connect } from 'react-redux';
 import Paginator, { paginationMapQuery } from './Paginator';
 import routerListenerHoC from '../tools/routerListenerHoC';
 import { getRepositoriesPage } from '~/redux/filters';
-
-const RepositoryListItem = ({ repository }) =>
-	<div>{repository.id}</div>;
+import RepositoryListItem from './RepositoryListItem';
 
 const RepositoriesList = ({ repositories }) =>
 {

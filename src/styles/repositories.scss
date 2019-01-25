@@ -4,4 +4,45 @@
 	.cch-orgs-list {
 		margin: 0 0 1.0em 0;
 	}
+
+	* + .cch-repository-listitem{
+		margin-top: 1.5em;
+	}
+}
+
+.cch-repository-listitem
+{
+	.ant-card-head-title
+	{
+		display: flex;
+		align-content: center;
+	}
+
+	.ant-avatar,
+	.cch-rep-li-name
+	{ margin: 0 1.5em 0 0; }
+
+	.cch-rep-li-name {
+		flex-grow: 1;
+		font-size: 1.3em;
+		padding: 0;
+	}
+
+	.cch-rep-li-details {
+		margin: 1.0em 0 0 0;
+	}
+		dt, dd {
+			display: inline;
+			margin: 0 .5em 0 0;
+		}
+
+		dt:after { content: ':'; }
+}
+
+.cch-stargazers
+{
+	display: flex;
+	align-items: center;
+
+	.anticon { margin: 0 .5em 0 0; }
 }

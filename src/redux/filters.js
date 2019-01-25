@@ -104,7 +104,7 @@ export const map =
 		}),
 };
 
-const PAGE_LIMIT = 1;
+const PAGE_LIMIT = DEV ? 3 : 10;
 
 export const getPaginationInfo = createSelector(
 	st => st.repositories.length,
