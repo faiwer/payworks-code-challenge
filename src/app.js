@@ -8,6 +8,8 @@ import persistState from 'redux-localstorage';
 import Root from '~/components/Root';
 import { reducer } from '~/redux/index';
 
+import './styles/index.scss';
+
 class App
 {
 	constructor(cfg)

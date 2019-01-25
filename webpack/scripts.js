@@ -52,7 +52,20 @@ const extractNPM = cfg =>
 		{
 			chunks: 'initial',
 			name: 'vendor',
-			test: /node_modules/,
+			test(module, chunks)
+			{
+				return module.context.includes('node_modules')
+					&& !module.context.includes('ant')
+					&& !module.context.includes('rc-');
+			},
+			enforce: true,
+		});
+	_.set(cfg, 'optimization.splitChunks.cacheGroups.antd',
+		{
+			chunks: 'all',
+			name: 'antd',
+			test: /@ant|antd|rc-/,
+			enforce: true,
 		});
 };
 
