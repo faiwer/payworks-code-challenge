@@ -8,11 +8,11 @@ const root = { url: '/', label: 'App' };
 // more robust in a real application
 const parseRoute = url =>
 {
-	if(url.startsWith('/org'))
+	if(url.startsWith('/rep'))
 		return (
 		[
 			root,
-			{ label: 'Organization' },
+			{ label: 'Repository' }, // todo set the rep name
 		]);
 	else return [root]; // list or some error
 };

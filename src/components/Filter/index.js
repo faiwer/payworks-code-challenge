@@ -1,13 +1,10 @@
 import React from 'react';
-import { Input } from 'antd';
+
+import OrganizationNameFilter from './OrganizationNameFilter';
 
 export default () =>
 	<div className="cch-filter">
-		<Input.Search
-			className="cch-filter-search"
-			placeholder="Enter an organization name"
-			enterButton
-		/>
+		<OrganizationNameFilter/>
 	</div>;
 
 // todo: filter language
