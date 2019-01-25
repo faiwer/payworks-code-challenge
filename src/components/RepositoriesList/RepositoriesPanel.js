@@ -4,11 +4,9 @@ import { Spin, Alert } from 'antd';
 import { withRouter, Redirect } from 'react-router-dom';
 
 import ErrBoundary from '../Layout/ErrBoundary';
+import RepositoriesList from './RepositoriesList';
 
-const RepositoryListItem = ({ repository }) =>
-	<div>{repository.id}</div>;
-
-const RepositoriesList = (
+const RepositoriesPanel = (
 {
 	isLoading, repositories, error, match,
 	activeOrganization
@@ -36,14 +34,7 @@ const RepositoriesList = (
 			type="info"
 		/>;
 
-	return <div className="cch-orgs-list">
-		<For each="repository" of={repositories}>
-			<RepositoryListItem
-				{...{ repository }}
-				key={repository.id}
-			/>
-		</For>
-	</div>;
+	return <RepositoriesList {...{ repositories }}/>;
 };
 
 const redux = connect(
@@ -56,4 +47,8 @@ const redux = connect(
 	}),
 );
 
-export default RepositoriesList |> memo |> redux |> ErrBoundary |> withRouter;
+export default RepositoriesPanel
+	|> memo
+	|> redux
+	|> ErrBoundary
+	|> withRouter;

@@ -2,7 +2,7 @@ import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 
 import Layout from './Layout';
-import RepositoriesList from './RepositoriesList';
+import RepositoriesPanel from './RepositoriesList/RepositoriesPanel';
 import Repository from './Repository';
 
 const defPath = [{ url: '/', label: 'Root' }];
@@ -14,12 +14,12 @@ export default () =>
 			<Route
 				exact
 				path="/"
-				component={RepositoriesList}
+				component={RepositoriesPanel}
 			/>
 			<Route
 				exact
 				path="/org/:organizationName"
-				component={RepositoriesList}
+				component={RepositoriesPanel}
 			/>
 			<Route
 				path="/rep/:organizationName/:repositoryId"

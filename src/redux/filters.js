@@ -1,3 +1,5 @@
+import { createSelector } from 'reselect';
+
 import { getRepositoriesList } from '~/api';
 
 export const initialState =
@@ -101,3 +103,28 @@ export const map =
 			repositories,
 		}),
 };
+
+const PAGE_LIMIT = 1;
+
+export const getPaginationInfo = createSelector(
+	st => st.repositories.length,
+	count =>
+	{
+		return (
+			{
+				itemsCount: count,
+				pagesCount: Math.ceil(count / PAGE_LIMIT),
+				pageLimit: PAGE_LIMIT,
+			});
+	}
+);
+
+export const getRepositoriesPage = createSelector(
+	st => st.repositories,
+	(_, page) => page,
+	(list, page) =>
+	{
+		const offset = (page - 1) * PAGE_LIMIT;
+		return list.slice(offset, offset + PAGE_LIMIT);
+	}
+);
