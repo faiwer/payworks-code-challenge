@@ -12,6 +12,7 @@ export const initialState =
 		field: null,
 		dir: 'DESC',
 	},
+	activeOrganization: null,
 	error: null,
 	isLoading: false,
 	repositories: null,
@@ -37,9 +38,10 @@ const aSetLoading = isLoading => (
 		type: 'SET_LOADING',
 		isLoading,
 	});
-const aSetRepositoriesList = repositories => (
+const aSetRepositoriesList = (activeOrganization, repositories) => (
 	{
 		type: 'SET_REP_LIST',
+		activeOrganization,
 		repositories,
 	});
 
@@ -54,7 +56,7 @@ export const aSearchRepositories = () =>
 
 			const { organizationName } = getState().filters;
 			const repositories = await getRepositoriesList(organizationName);
-			aSetRepositoriesList(repositories) |> dispatch;
+			aSetRepositoriesList(organizationName, repositories) |> dispatch;
 		}
 		catch(err)
 		{
@@ -92,9 +94,10 @@ export const map =
 				[field]: value,
 			}
 		}),
-	SET_REP_LIST: (st, { repositories }) => (
+	SET_REP_LIST: (st, { activeOrganization, repositories }) => (
 		{
 			...st,
+			activeOrganization,
 			repositories,
 		}),
 };

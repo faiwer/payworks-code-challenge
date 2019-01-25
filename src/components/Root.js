@@ -17,6 +17,11 @@ export default () =>
 				component={RepositoriesList}
 			/>
 			<Route
+				exact
+				path="/org/:organizationName"
+				component={RepositoriesList}
+			/>
+			<Route
 				path="/rep/:organizationName/:repositoryId"
 				component={Repository}
 			/>
