@@ -5,7 +5,7 @@ const ErrorAlert = ({ error }) =>
 {
 	console.log(error); // for debug case
 	return <Alert
-		message={this.state.error.message}
+		message={error.message || error}
 		type="error"
 	/>;
 };
@@ -22,7 +22,7 @@ export default Component => class ErrorBoundary extends React.PureComponent
 	render()
 	{
 		if(this.state.error)
-			<ErrorAlert error={this.state.error}/>;
+			return <ErrorAlert error={this.state.error}/>;
 
 		return <Component {...this.props}/>;
 	}

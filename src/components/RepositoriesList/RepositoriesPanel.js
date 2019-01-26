@@ -88,5 +88,5 @@ const mapQuery = ({ match: { params } }) =>
 export default RepositoriesPanel
 	|> memo
 	|> redux
-	|> ErrBoundary
-	|> routerListenerHoC(mapQuery);
+	|> routerListenerHoC(mapQuery)
+	|> ErrBoundary;
