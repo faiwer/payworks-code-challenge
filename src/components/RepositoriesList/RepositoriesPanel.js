@@ -1,54 +1,92 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Spin, Alert } from 'antd';
-import { withRouter, Redirect } from 'react-router-dom';
 
 import ErrBoundary from '../Layout/ErrBoundary';
 import RepositoriesList from './RepositoriesList';
+import {
+	aSearchRepositories,
+	aClearOrganization } from '~/redux/organization/actions';
+import routerListenerHoC from '../tools/routerListenerHoC';
 
 const RepositoriesPanel = (
 {
-	isLoading, repositories, error, match,
-	activeOrganization
+	isLoading, repositoriesLoaded, error,
+	storeOrganization, queryOrganization,
+	search, reset
 }) =>
 {
-	const urlOrg = match.params.organizationName;
-	if(activeOrganization && activeOrganization !== urlOrg)
-		return <Redirect to={`/org/${activeOrganization}`}/>;
+	useEffect(() =>
+	{
+		if(!queryOrganization && storeOrganization)
+			// there's no organization in the query, but some organization
+			// is presented in the store
+			reset();
+		else if(!queryOrganization)
+			// both store and query are empty
+			// nothing to do here
+			return;
+		// query and store are consistent, just use it
+		else if(queryOrganization === storeOrganization)
+		{
+			if(!repositoriesLoaded && !isLoading && !error)
+				// something has got wrong, reload?
+				search(queryOrganization);
+		}
+		else
+			// query and store mismatch, so let's load the query version
+			search(queryOrganization);
+	});
 
-	if(isLoading)
+	if(queryOrganization !== storeOrganization)
+		return null; // loading process will be started soon
+
+	if(!storeOrganization) // user should set one
+		return `Organization isn't set`;
+
+	if(isLoading) // show spinner
 		return <Spin size="large"/>;
 
-	if(error)
+	if(error) // probably ajax-error
 		return <Alert
 			message={error}
 			type="error"
 		/>;
 
-	if(repositories === null)
+	if(!repositoriesLoaded)
+		// something has got wrong
 		return null;
 
-	if(repositories.length === 0)
-		return <Alert
-			message="There's no repository yet"
-			type="info"
-		/>;
-
-	return <RepositoriesList {...{ repositories }}/>;
+	return <>
+		<h2 className="cch-content-title">
+			Organization: {storeOrganization}
+		</h2>
+		<RepositoriesList/>
+	</>;
 };
 
 const redux = connect(
-	st => (
+	({ organization: org }) => (
 	{
-		activeOrganization: st.activeOrganization,
-		repositories: st.repositories,
-		isLoading: st.isLoading,
-		error: st.error,
+		storeOrganization: org.organizationName || null,
+		repositoriesLoaded: !!org.repositories,
+		isLoading: org.isLoading,
+		error: org.error,
 	}),
+	{
+		search: aSearchRepositories,
+		reset: aClearOrganization,
+	},
 );
+
+const mapQuery = ({ match: { params } }) =>
+{
+	const { organizationName } = params;
+	return { queryOrganization: organizationName || null };
+};
 
 export default RepositoriesPanel
 	|> memo
 	|> redux
 	|> ErrBoundary
-	|> withRouter;
+	|> routerListenerHoC(mapQuery);

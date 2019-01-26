@@ -57,7 +57,7 @@ class App
 			.filter(Boolean));
 		this._store = createStore(
 			reducer,
-			null, // initial value
+			undefined, // initial value
 			middlewares);
 	}
 

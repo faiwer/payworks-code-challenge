@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { Card, Avatar, Icon } from 'antd';
+import { Link } from 'react-router-dom';
 
 import { displayDate } from '~/tools';
 
@@ -16,6 +17,9 @@ const StarGazers = ({ count }) =>
 		</div>
 	</If>;
 
+const genRepositoryURL = repository =>
+	`/rep/${repository.owner.login}/${repository.name}`;
+
 const RepositoryTitle = ({ repository }) =>
 	<>
 		<Avatar
@@ -23,7 +27,9 @@ const RepositoryTitle = ({ repository }) =>
 			src={repository.owner.avatar_url}
 		/>
 		<h3 className="cch-rep-li-name">
-			{repository.name}
+			<Link to={genRepositoryURL(repository)}>
+				{repository.name}
+			</Link>
 		</h3>
 		<StarGazers count={repository.stargazers_count}/>
 	</>;

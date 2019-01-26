@@ -1,16 +1,25 @@
 import React, { memo } from 'react';
 import { connect } from 'react-redux';
+import { Alert } from 'antd';
 
-import Paginator, { paginationMapQuery } from './Paginator';
+import Paginator, { paginationMapQuery } from '~/components/UI/Paginator';
 import routerListenerHoC from '../tools/routerListenerHoC';
-import { getRepositoriesPage } from '~/redux/filters';
+import { getPaginationInfo } from '~/redux/organization/selectors';
 import RepositoryListItem from './RepositoryListItem';
 
-const RepositoriesList = ({ repositories }) =>
+const RepositoriesList = ({ pagInfo }) =>
 {
+	const repositories = pagInfo.items;
+
 	return <div className="cch-reps-box">
-		<Paginator/>
+		<Paginator {...pagInfo}/>
 		<div className="cch-orgs-list">
+			<If condition={!repositories.length}>
+				<Alert
+					message="Empty list"
+					type="info"
+				/>
+			</If>
 			<For each="repository" of={repositories}>
 				<RepositoryListItem
 					{...{ repository }}
@@ -18,18 +27,19 @@ const RepositoriesList = ({ repositories }) =>
 				/>
 			</For>
 		</div>
-		<Paginator/>
+		<Paginator {...pagInfo}/>
 	</div>;
 };
 
 const redux = connect(
-	(st, { page }) => (
+	({ organization: org }, { page }) => (
 	{
-		repositories: getRepositoriesPage(st, page),
+		pagInfo: getPaginationInfo(org, page),
 	}),
 );
 
 export default RepositoriesList
 	|> memo
 	|> redux
+	// fetch page from url for redux()
 	|> routerListenerHoC(paginationMapQuery);

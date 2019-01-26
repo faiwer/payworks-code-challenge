@@ -1,10 +1,10 @@
 import React from 'react';
 
-import OrganizationNameFilter from './OrganizationNameFilter';
+import Search from './Search';
 
 export default () =>
 	<div className="cch-filter">
-		<OrganizationNameFilter/>
+		<Search/>
 	</div>;
 
 // todo: filter language

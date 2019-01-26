@@ -2,24 +2,30 @@ import React from 'react';
 import { Breadcrumb } from 'antd';
 import { withRouter, Link } from 'react-router-dom';
 
-const root = { url: '/', label: 'App' };
-
 // simple parse-mechanism, it should be replaced by something
 // more robust in a real application
 const parseRoute = url =>
 {
 	if(url.startsWith('/rep'))
+	{
+		const [,, org, rep] = url.split('/');
 		return (
 		[
-			root,
-			{ label: 'Repository' }, // todo set the rep name
+			{ label: org, url: `/org/${org}` },
+			{ label: rep },
 		]);
-	else return [root]; // list or some error
+	}
+	else return []; // list or some error
 };
 
 const AppBreadcrumb = ({ location }) =>
-	<Breadcrumb className="cch-breadcrumb">
-		<For each="item" of={location.pathname |> parseRoute}>
+{
+	const path = location.pathname |> parseRoute;
+	if(!path.length)
+		return null;
+
+	return <Breadcrumb className="cch-breadcrumb">
+		<For each="item" of={path}>
 			<Breadcrumb.Item key={item.url + item.label}>
 				<If condition={item.url}>
 					<Link to={item.url}>
@@ -32,5 +38,6 @@ const AppBreadcrumb = ({ location }) =>
 			</Breadcrumb.Item>
 		</For>
 	</Breadcrumb>;
+};
 
 export default AppBreadcrumb |> withRouter;

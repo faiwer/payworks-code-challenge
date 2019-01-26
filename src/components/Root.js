@@ -3,14 +3,12 @@ import { HashRouter, Route } from 'react-router-dom';
 
 import Layout from './Layout';
 import RepositoriesPanel from './RepositoriesList/RepositoriesPanel';
-import Repository from './Repository';
-
-const defPath = [{ url: '/', label: 'Root' }];
+import RepositoryPanel from './Repository/RepositoryPanel';
 
 export default () =>
 {
 	return <HashRouter>
-		<Layout path={defPath}>
+		<Layout>
 			<Route
 				exact
 				path="/"
@@ -22,8 +20,8 @@ export default () =>
 				component={RepositoriesPanel}
 			/>
 			<Route
-				path="/rep/:organizationName/:repositoryId"
-				component={Repository}
+				path="/rep/:organizationName/:repositoryName"
+				component={RepositoryPanel}
 			/>
 		</Layout>
 	</HashRouter>;
