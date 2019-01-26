@@ -3,11 +3,13 @@ import { Route } from 'react-router-dom';
 
 import Search from './Search';
 import Language from './Language';
+import Sort from './Sort';
 
 const OrganizationFilters = () =>
 	<>
 		<Search/>
 		<Language/>
+		<Sort/>
 	</>;
 const RepositoryFilters = () => <Search/>;
 

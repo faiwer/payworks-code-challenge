@@ -1,19 +1,37 @@
 import _ from 'lodash';
 import { createSelector } from 'reselect';
 
+// defaultSort may be defined here... or there.
+// I don't know where is better :)
+import { defaultSort } from '~/components/Filter/Sort';
+
+const sortFields =
+	{
+		stars: { field: 'stargazers_count', dir: 'DESC' },
+		forks: { field: 'forks_count', dir: 'DESC' },
+	};
+
 const PAGE_LIMIT = DEV ? 1 : 10;
 
 const getSortedFilteresReps = createSelector(
 	st => st.repositories,
 	(_, query) => query.lang,
-	(list, lang) =>
+	(_, query) => query.sort || defaultSort,
+	(list, lang, sort) =>
 	{
 		if(lang)
 			list = list.filter(v => v.language === lang);
 
-		// todo: sort
-
-		return list;
+		const { field, dir } = sortFields[sort];
+		return list.sort((a, b) =>
+			{
+				const v1 = a[field];
+				const v2 = b[field];
+				const result = v1 > v2 ? +1 : -1;
+				return dir === 'DESC'
+					? result * -1
+					: result;
+			});
 	}
 );
 
