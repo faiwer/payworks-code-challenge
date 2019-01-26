@@ -26,6 +26,15 @@ const genBabelConfig = DEV =>
 		cfg.plugins.push('@babel/plugin-transform-react-jsx-source');
 	}
 
+	// set it only for webpack because otherwise (in .babelrc)
+	// it breaks nodejs-test enviroment
+	cfg.plugins.push(
+		[
+			'babel-plugin-import',
+			{ libraryName: 'antd', libraryDirectory: 'es', style: 'css' },
+			'antd'
+		]);
+
 	return cfg;
 };
 
