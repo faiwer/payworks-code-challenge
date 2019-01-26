@@ -75,10 +75,10 @@ const DescriptionAttr = ({ description }) =>
 const RepositoryListItem = ({ repository }) =>
 	<Card
 		title={<RepositoryTitle {...{ repository }}/>}
-		className="cch-repository-listitem"
+		className="cch-list-item cch-repository-listitem"
 	>
 		<DescriptionAttr description={repository.description}/>
-		<ul className="cch-rep-li-details">
+		<ul className="cch-details-list">
 			<LanguageAttr
 				language={repository.language}
 				url={repository.languages_url}

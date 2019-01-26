@@ -3,7 +3,7 @@ import { HashRouter, Route } from 'react-router-dom';
 
 import Layout from './Layout';
 import RepositoriesPanel from './RepositoriesList/RepositoriesPanel';
-import RepositoryPanel from './Repository/RepositoryPanel';
+import BranchesPanel from './BranchesList/BranchesPanel';
 
 export default () =>
 {
@@ -21,7 +21,7 @@ export default () =>
 			/>
 			<Route
 				path="/rep/:organizationName/:repositoryName"
-				component={RepositoryPanel}
+				component={BranchesPanel}
 			/>
 		</Layout>
 	</HashRouter>;

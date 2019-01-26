@@ -2,16 +2,17 @@ import {
 	SET_ERROR,
 	CLEAR_ERROR,
 	SET_LOADING,
-	CLEAR_ORG,
-	SET_ORG,
-	SET_REP_LIST } from './actions';
+	CLEAR_REP,
+	SET_REP,
+	SET_BRANCHES_LIST } from './actions';
 
 const initialState =
 {
 	organizationName: null,
+	repositoryName: null,
 	error: null,
 	isLoading: false,
-	repositories: null,
+	branches: null,
 };
 
 export const map =
@@ -31,23 +32,25 @@ export const map =
 			...st,
 			isLoading,
 		}),
-	[CLEAR_ORG]: st => (
+	[CLEAR_REP]: st => (
 		{
 			...st,
 			error: null,
-			repositories: null,
+			branches: null,
 			organizationName: null,
+			repositoryName: null,
 		}),
-	[SET_ORG]: (st, { organizationName }) => (
+	[SET_REP]: (st, { organizationName, repositoryName }) => (
 		{
 			error: null,
-			repositories: null,
+			branches: null,
 			organizationName,
+			repositoryName,
 		}),
-	[SET_REP_LIST]: (st, { repositories }) => (
+	[SET_BRANCHES_LIST]: (st, { branches }) => (
 		{
 			...st,
-			repositories,
+			branches,
 		}),
 };
 

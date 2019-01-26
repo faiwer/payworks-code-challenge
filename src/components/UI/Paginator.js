@@ -20,6 +20,9 @@ const RepPagination = ({ page, itemsCount, pageLimit, history }) =>
 				});
 		});
 
+	if(itemsCount < pageLimit)
+		return null;
+
 	return <Pagination
 		className="cch-reps-pagination"
 		total={itemsCount}

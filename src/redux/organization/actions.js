@@ -12,10 +12,6 @@ const aSetError = err => (
 		type: SET_ERROR,
 		error: err.message || err,
 	});
-const aClearError = err => (
-	{
-		type: CLEAR_ERROR,
-	});
 const aSetLoading = isLoading => (
 	{
 		type: SET_LOADING,

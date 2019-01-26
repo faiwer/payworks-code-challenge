@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 const PAGE_LIMIT = DEV ? 3 : 10;
 
 export const getPaginationInfo = createSelector(
-	st => st.repositories,
+	st => st.branches,
 	(_, page) => page,
 	(list, page) =>
 	{

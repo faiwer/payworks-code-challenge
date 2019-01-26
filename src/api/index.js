@@ -10,3 +10,14 @@ export const getRepositoriesList = orgName =>
 
 			throw err;
 		});
+
+export const getBranchesList = (orgName, repName) =>
+	get(`/repos/${orgName}/${repName}/branches`)
+		.catch(err =>
+		{
+			if(err.queryStatus === 404)
+				// normal response for unknown branches
+				throw new Error(`Branch isn't found`);
+
+			throw err;
+		});

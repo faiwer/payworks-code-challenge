@@ -1,0 +1,21 @@
+.cch-list-box
+{
+	.cch-reps-pagination:first-child,
+	.cch-list-list {
+		margin: 0 0 1.0em 0;
+	}
+
+	* + .cch-list-item{
+		margin-top: 1.5em;
+	}
+}
+
+.cch-details-list {
+	margin: 1.0em 0 0 0;
+}
+	dt, dd {
+		display: inline;
+		margin: 0 .5em 0 0;
+	}
+
+	dt:after { content: ':'; }
