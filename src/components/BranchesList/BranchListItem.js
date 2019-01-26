@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Card, Icon } from 'antd';
+import { Card } from 'antd';
 
 const BranchListItem = ({ branch }) =>
 	<Card

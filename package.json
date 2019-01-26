@@ -2,7 +2,11 @@
   "scripts": {
     "dev": "NODE_ENV=development webpack-dev-server --config=webpack",
     "build": "NODE_ENV=production webpack --config=webpack",
-    "test": "mocha ./test/app/*.js"
+    "test": "mocha ./test/app/*.js",
+    "eslint": "eslint . --ext .js",
+    "docker/build": "docker build -t zubashev-stepan-test .",
+    "docker/run": "docker run --rm -p 9400:80 zubashev-stepan-test",
+    "docker/test": "docker build -t zubashev-stepan-test-build --target build-stage . && docker run --rm zubashev-stepan-test-build npm run test"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",
