@@ -31,5 +31,3 @@ export default () =>
 			component={RepositoryFilters}
 		/>
 	</div>;
-
-// todo: sort by: rank || number of forks
