@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { createSelector } from 'reselect';
 
 const PAGE_LIMIT = DEV ? 3 : 10;
@@ -18,4 +19,9 @@ export const getPaginationInfo = createSelector(
 				pageLimit: PAGE_LIMIT,
 			});
 	}
+);
+
+export const getUsedLanguages = createSelector(
+	st => st.repositories,
+	list => _.uniqBy(list, 'language').map(v => v.language)
 );

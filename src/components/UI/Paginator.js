@@ -3,21 +3,22 @@ import { Pagination } from 'antd';
 import qs from 'query-string';
 import { useAutoCallback as useCallback } from 'hooks.macro';
 
+import { genQueryString } from '~/tools';
 import routerListenerHoC from '../tools/routerListenerHoC';
 
-const RepPagination = ({ page, itemsCount, pageLimit, history }) =>
+const RepPagination = ({ page, itemsCount, pageLimit, history, location }) =>
 {
 	const onChange = useCallback(newPage =>
 		{
 			if(page === newPage)
 				return;
 
-			history.push(
+			const params =
 				{
-					search: newPage > 1
-						? `?page=${newPage}`
-						: ''
-				});
+					...qs.parse(location.search),
+					page: newPage > 1 ? newPage : null,
+				};
+			history.push(genQueryString(params));
 		});
 
 	if(itemsCount < pageLimit)
