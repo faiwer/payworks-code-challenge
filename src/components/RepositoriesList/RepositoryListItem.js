@@ -39,7 +39,10 @@ const LanguageAttr = ({ language, url }) =>
 		<li>
 			<dt>Language</dt>
 			<dd>
-				<a href={url}>
+				<a
+					href={url}
+					target="_blank"
+				>
 					{language}
 				</a>
 			</dd>

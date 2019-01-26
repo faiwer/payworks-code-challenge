@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { connect } from 'react-redux';
 import { Alert } from 'antd';
+import qs from 'query-string';
 
 import Paginator, { paginationMapQuery } from '~/components/UI/Paginator';
 import routerListenerHoC from '../tools/routerListenerHoC';
@@ -32,14 +33,21 @@ const RepositoriesList = ({ pagInfo }) =>
 };
 
 const redux = connect(
-	({ organization: org }, { page }) => (
+	({ organization: org }, { lang, sort, page }) => (
 	{
-		pagInfo: getPaginationInfo(org, page),
+		pagInfo: getPaginationInfo(org, { lang, sort, page }),
 	}),
 );
+
+const sortAndFilterMapQuery = ({ location }) =>
+{
+	const { lang, sort } = qs.parse(location.search);
+	return { lang, sort };
+};
 
 export default RepositoriesList
 	|> memo
 	|> redux
 	// fetch page from url for redux()
+	|> routerListenerHoC(sortAndFilterMapQuery)
 	|> routerListenerHoC(paginationMapQuery);

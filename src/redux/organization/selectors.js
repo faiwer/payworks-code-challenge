@@ -1,11 +1,25 @@
 import _ from 'lodash';
 import { createSelector } from 'reselect';
 
-const PAGE_LIMIT = DEV ? 3 : 10;
+const PAGE_LIMIT = DEV ? 1 : 10;
+
+const getSortedFilteresReps = createSelector(
+	st => st.repositories,
+	(_, query) => query.lang,
+	(list, lang) =>
+	{
+		if(lang)
+			list = list.filter(v => v.language === lang);
+
+		// todo: sort
+
+		return list;
+	}
+);
 
 export const getPaginationInfo = createSelector(
-	st => st.repositories,
-	(_, page) => page,
+	getSortedFilteresReps,
+	(_, { page }) => page,
 	(list, page) =>
 	{
 		const count = list.length;
