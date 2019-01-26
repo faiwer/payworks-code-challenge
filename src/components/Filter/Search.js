@@ -2,30 +2,32 @@ import React, { memo } from 'react';
 import { connect } from 'react-redux';
 import { Input } from 'antd';
 import { useAutoCallback as useCallback } from 'hooks.macro';
-import { withRouter } from 'react-router-dom';
 
-import { aSetFilter } from '~/redux/filters/actions';
 import { aClearOrganization } from '~/redux/organization/actions';
+import { aClearRepository } from '~/redux/repository/actions';
+import routerListenerHoC from '~/components/tools/routerListenerHoC';
 
 const SearchFilter = (
 {
-	value, history, clearOrganization,
-	setSearch
+	value, history,
+	clearOrganization, clearRepository,
+	organizationName, repositoryName,
 }) =>
 {
-	const onChange = useCallback(evt =>
-		{
-			setSearch(evt.target.value);
-		});
-
-	const onSearch = useCallback(() =>
+	const onSearch = useCallback(value =>
 		{
 			if(value.includes('/'))
-				throw new Error(`Isn't implemented yet`);
+			{
+				const [org, rep] = value.split('/');
+				clearRepository();
+				if(org !== organizationName || rep !== repositoryName)
+					history.push(`/rep/${org}/${rep}`);
+			}
 			else
 			{
 				clearOrganization();
-				history.push(`/org/${value}`);
+				if(organizationName !== value)
+					history.push(`/org/${value}`);
 			}
 		});
 
@@ -33,17 +35,25 @@ const SearchFilter = (
 		className="cch-filter-search"
 		placeholder="Organization name"
 		enterButton
-		{...{ value, onChange, onSearch }}
+		{...{ onSearch }}
 	/>;
 };
 
+const mapQuery = ({ match }) =>
+{
+	const { organizationName, repositoryName } = match.params;
+	return { organizationName, repositoryName };
+};
+
 const redux = connect(
-	st => ({ value: st.filters.search || '' }),
-	dispatch => (
+	null,
 	{
-		setSearch: value => aSetFilter('search', value) |> dispatch,
-		clearOrganization: () => aClearOrganization() |> dispatch,
-	}),
+		clearOrganization: aClearOrganization,
+		clearRepository: aClearRepository,
+	},
 );
 
-export default SearchFilter |> memo |> redux |> withRouter;
+export default SearchFilter
+	|> memo
+	|> redux
+	|> routerListenerHoC(mapQuery);

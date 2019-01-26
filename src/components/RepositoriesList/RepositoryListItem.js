@@ -17,6 +17,16 @@ const StarGazers = ({ count }) =>
 		</div>
 	</If>;
 
+const Forks = ({ count }) =>
+	<If condition={count > 0}>
+		<div className="cch-forks">
+			<Icon type="fork"/>
+			<span>
+				{count}
+			</span>
+		</div>
+	</If>;
+
 const genRepositoryURL = repository =>
 	`/rep/${repository.owner.login}/${repository.name}`;
 
@@ -32,6 +42,7 @@ const RepositoryTitle = ({ repository }) =>
 			</Link>
 		</h3>
 		<StarGazers count={repository.stargazers_count}/>
+		<Forks count={repository.forks_count}/>
 	</>;
 
 const LanguageAttr = ({ language, url }) =>
@@ -39,7 +50,10 @@ const LanguageAttr = ({ language, url }) =>
 		<li>
 			<dt>Language</dt>
 			<dd>
-				<a href={url}>
+				<a
+					href={url}
+					target="_blank"
+				>
 					{language}
 				</a>
 			</dd>

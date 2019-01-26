@@ -17,10 +17,12 @@
 	}
 }
 
-.cch-stargazers
+.cch-stargazers, .cch-forks
 {
 	display: flex;
 	align-items: center;
+
+	* + & { margin-left: 1.0em; }
 
 	.anticon { margin: 0 .5em 0 0; }
 }
