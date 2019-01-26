@@ -11,7 +11,7 @@ const sortFields =
 		forks: { field: 'forks_count', dir: 'DESC' },
 	};
 
-const PAGE_LIMIT = DEV ? 1 : 10;
+const PAGE_LIMIT = (DEV || window.TEST) ? 3 : 10;
 
 const getSortedFilteresReps = createSelector(
 	st => st.repositories,

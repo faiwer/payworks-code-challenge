@@ -31,11 +31,6 @@
 				}
 			}
 		],
-		"babel-plugin-lodash",
-		[
-			"babel-plugin-import",
-			{ "libraryName": "antd", "libraryDirectory": "es", "style": "css" },
-			"antd"
-		],
+		"babel-plugin-lodash"
 	]
 }
