@@ -39,6 +39,10 @@ This repository contains react-redux application which shows organizations proje
 - `tests/app` - tests
 - `webpack/*` - custom webpack configuration
 
+# Git
+
+I worked in `dev` branch and squashed all major updates into `master`. To be honest I don't think that it was a good idea :) What approach do you prefer?
+
 # notes
 
 - I used `react`, `redux`, `react-thunk`, `reselect` because I have big experience with the,
