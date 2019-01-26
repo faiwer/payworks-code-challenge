@@ -1,0 +1,27 @@
+.cch-footer {
+	text-align: center;
+}
+
+.cch-root-header {
+	align-items: center;
+	display: flex;
+}
+
+.cch-breadcrumb {
+	margin: 1.2em 0;
+}
+
+.cch-root-content {
+	padding: 0 3.0em;
+}
+
+.cch-content {
+	background: $layoutContentBgC;
+	padding: 1.6em;
+	min-height: 20em;
+}
+
+.cch-content-title {
+	margin: 0 0 1.0em 0;
+	font-size: 2.0em;
+}

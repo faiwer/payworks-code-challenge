@@ -1,0 +1,26 @@
+.cch-repository-listitem
+{
+	.ant-card-head-title
+	{
+		display: flex;
+		align-content: center;
+	}
+
+	.ant-avatar,
+	.cch-rep-li-name
+	{ margin: 0 1.5em 0 0; }
+
+	.cch-rep-li-name {
+		flex-grow: 1;
+		font-size: 1.3em;
+		padding: 0;
+	}
+}
+
+.cch-stargazers
+{
+	display: flex;
+	align-items: center;
+
+	.anticon { margin: 0 .5em 0 0; }
+}

@@ -1,19 +1,20 @@
 import axios from 'axios';
 
-const prefix = '/';
+const prefix = 'https://api.github.com';
 
-const handleResponse = ({ status, data }) =>
+const QueryErr = response => (
 	{
-		if(status !== 200)
-			throw new Error('Bad server response');
+		queryStatus: response.status,
+		// error by default
+		message: 'Bad server response',
+	});
 
-		return data;
-	};
+const handleResponse = response => response.data;
 
 const handleQueryErr = err =>
-	{
-		throw new Error('Bad server response');
-	};
+{
+	throw QueryErr(err.response);
+};
 
 export const get = (uri, params) =>
 	axios
